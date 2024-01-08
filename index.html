@@ -1,297 +1,530 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-   <head>
-      <meta charset="UTF-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <link rel="shortcut icon" href="./img/fav-icon.png" type="image/x-icon">
-      <link href="https://cdn.jsdelivr.net/npm/remixicon@3.0.0/fonts/remixicon.css" rel="stylesheet">
-      <link rel="stylesheet" href="./css/style.css">
-      <title>Portifólio | Nícolas Berbert</title>
-   </head>
 
-   <body>
-      <!--==================== HEADER ====================-->
-      <header class="header" id="header">
-         <nav class="nav container">
-            <a href="#" class="nav__logo">
-                NICO<span>DEV</span>
-            </a>
-            <div class="nav__menu" id="nav-menu">
-                <ul class="nav__list">
-                    <li class="nav__item">
-                        <a href="#home" class="nav__link">Início</a>
-                    </li>
-                    <li class="nav__item">
-                        <a href="#about" class="nav__link">Sobre</a>
-                    </li>
-                    <li class="nav__item">
-                        <a href="#services" class="nav__link">Serviços</a>
-                    </li>
-                    <li class="nav__item">
-                        <a href="#projects" class="nav__link">Projetos</a>
-                    </li>
-                    <li class="nav__item">
-                        <a href="#contact" class="nav__link">Contato</a>
-                    </li>
-                </ul>
-                <div class="nav__close" id="nav-close">
-                    <i class="ri-close-line"></i>
+<head>
+    <meta charset="UTF-8">
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script><script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    <title>Controle de Estoque</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <!-- Barra de Navegação -->
+    <header class="navbar">
+        <h1>Controle de Estoque</h1>
+    </header>
+
+    <!-- Painel Lateral -->
+    <nav>
+        <div class="tabs">
+            <button class="tablink" onclick="openTab(event, 'usuarios')">Usuários</button>
+            <button class="tablink" onclick="openTab(event, 'fornecedores')">Fornecedores</button>
+            <button class="tablink" onclick="openTab(event, 'clientes')">Clientes</button>
+            <button class="tablink" onclick="openTab(event, 'financeiro')">Financeiro</button>
+            <button class="tablink" onclick="openTab(event, 'estoque')">Estoque</button>
+            <button class="tablink" onclick="openTab(event, 'vendas')">Vendas</button>
+            <button class="tablink" onclick="openTab(event, 'compras')">Compras</button>
+        </div>
+    </nav>
+
+    <!-- Área Principal de Trabalho -->
+    <main class="main-content">
+        <section class="content">
+            <div id="usuarios" class="tabcontent">
+                <button class="nestedtablink" onclick="openNestedTab(event, 'gerenciamento')">Gerenciamento de Contas</button>
+                <button class="nestedtablink" onclick="openNestedTab(event, 'autenticacao')">Autenticação e Segurança</button>
+    
+                <div id="gerenciamento" class="nestedtabcontent">
+                    <h3>Gerenciamento de Contas de Usuários</h3>
+                    
+                    <button onclick="openModal('modalNovoUsuario')">Novo Usuário</button>
+                
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Nome</th>
+                                <th>E-mail</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>Usuário A</td>
+                                <td>usuario@example.com</td>
+                                <td>
+                                    <button onclick="openModal('modalEditarUsuario')">Editar</button>
+                                    <button onclick="deleteUser(1)">Excluir</button>
+                                </td>
+                            </tr>
+                            <!-- Adicione mais linhas conforme necessário -->
+                        </tbody>
+                    </table>
+                
+                    <div id="modalNovoUsuario" class="modal">
+                        <div class="modal-content">
+                            <h4>Novo Usuário</h4>
+                            <label for="nomeNovoUsuario">Nome:</label>
+                            <input type="text" id="nomeNovoUsuario">
+                
+                            <label for="emailNovoUsuario">E-mail:</label>
+                            <input type="text" id="emailNovoUsuario">
+                
+                            <button onclick="saveNewUser()">Salvar</button>
+                            <button onclick="closeModal()">Cancelar</button>
+                        </div>
+                    </div>
+                
+                    <div id="modalEditarUsuario" class="modal">
+                        <div class="modal-content">
+                            <h4>Editar Usuário</h4>
+                            <label for="nomeEditarUsuario">Nome:</label>
+                            <input type="text" id="nomeEditarUsuario">
+                
+                            <label for="emailEditarUsuario">E-mail:</label>
+                            <input type="text" id="emailEditarUsuario">
+                
+                            <button onclick="saveEditedUser()">Salvar</button>
+                            <button onclick="closeModal()">Cancelar</button>
+                        </div>
+                    </div>
+                </div>
+    
+                <div id="autenticacao" class="nestedtabcontent">
+                    <h3>Autenticação e Segurança</h3>
+                
+                    <label for="politicaSenha">Política de Senha:</label>
+                    <select id="politicaSenha">
+                        <option value="padrao">Padrão</option>
+                        <option value="forte">Forte</option>
+                        <option value="personalizada">Personalizada</option>
+                    </select>
+                
+                    <label for="configuracoesLogin">Configurações de Login:</label>
+                    <textarea id="configuracoesLogin" rows="4"></textarea>
+                
+                    <button onclick="saveSecuritySettings()">Salvar Configurações</button>
                 </div>
             </div>
-            <div class="nav__toggle" id="nav-toggle">
-                <i class="ri-menu-line"></i>
-            </div>
-         </nav>
-      </header>
-
-      <!--==================== MAIN ====================-->
-      <main class="main">
-         <!--==================== HOME ====================-->
-         <section class="home section" id="home">
-            <div class="home__container container grid">
-                <div class="home__content">
-                    <div class="home__data">
-                        <h3 class="home__sobtitle">
-                            Olá, <span>Meu nome é</span>
-                        </h3>
-                        <h1 class="home__title">Nícolas</h1>
-                        <h3 class="home__education">Desenvolvedor Front-End</h3>
-                        <p class="home__description">Com habilidades consolidadas em desenvolvimento web e design, 
-                            estou preparado para criar projetos excepcionais que se traduzem em entregas de alta qualidade.
-                        </p>
-                        <a href="#contact" class="button">Entre em contato</a>
-                    </div>
-                    <div class="home__social">
-                        <a href="https://github.com/n1codev" target="_blank" class="home__social-link">
-                            <i class="ri-github-fill"></i>
-                        </a>
-                        <a href="https://www.linkedin.com/in/n%C3%ADcolas-berbert-85269b26a/" target="_blank" class="home__social-link">
-                            <i class="ri-linkedin-box-line"></i>
-                        </a>
-                        <a href="https://www.instagram.com/nicoberbert/" target="_blank" class="home__social-link">
-                            <i class="ri-instagram-line"></i>
-                        </a>
+        </div>
+        </section>
+        <section class="content">
+            <div id="fornecedores" class="nestedtabcontent">
+                <h3>Lista de Fornecedores</h3>
+            
+                <button onclick="openModal('modalNovoFornecedor')">Novo Fornecedor</button>
+            
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nome</th>
+                            <th>Contato</th>
+                            <th>E-mail</th>
+                            <th>CNPJ</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>Fornecedor A</td>
+                            <td>João Silva</td>
+                            <td>fornecedor@example.com</td>
+                            <td>00.000.000/0000-00</td>
+                            <td>
+                                <button onclick="openModal('modalEditarFornecedor')">Editar</button>
+                                <button onclick="deleteSupplier(1)">Excluir</button>
+                            </td>
+                        </tr>
+                        <!-- Adicione mais linhas conforme necessário -->
+                    </tbody>
+                </table>
+            
+                <div id="modalNovoFornecedor" class="modal">
+                    <div class="modal-content">
+                        <h4>Novo Fornecedor</h4>
+                        <label for="nomeNovoFornecedor">Nome:</label>
+                        <input type="text" id="nomeNovoFornecedor">
+                
+                        <label for="contatoNovoFornecedor">Contato:</label>
+                        <input type="text" id="contatoNovoFornecedor">
+                
+                        <label for="emailNovoFornecedor">E-mail:</label>
+                        <input type="text" id="emailNovoFornecedor">
+                
+                        <label for="cnpjNovoFornecedor">CNPJ:</label>
+                        <input type="text" id="cnpjNovoFornecedor" placeholder="00.000.000/0000-00">
+                
+                        <button onclick="saveNewSupplier()">Salvar</button>
+                        <button onclick="closeModal()">Cancelar</button>
                     </div>
                 </div>
-                <div class="home__image">
-                    <img class="home__image" src="./img/fav-icon.png" alt="">
+                
+                <div id="modalEditarFornecedor" class="modal">
+                    <div class="modal-content">
+                        <h4>Editar Fornecedor</h4>
+                        <label for="nomeEditarFornecedor">Nome:</label>
+                        <input type="text" id="nomeEditarFornecedor">
+                
+                        <label for="contatoEditarFornecedor">Contato:</label>
+                        <input type="text" id="contatoEditarFornecedor">
+                
+                        <label for="emailEditarFornecedor">E-mail:</label>
+                        <input type="text" id="emailEditarFornecedor">
+                
+                        <label for="cnpjEditarFornecedor">CNPJ:</label>
+                        <input type="text" id="cnpjEditarFornecedor" placeholder="00.000.000/0000-00">
+                
+                        <button onclick="saveEditedSupplier()">Salvar</button>
+                        <button onclick="closeModal()">Cancelar</button>
+                    </div>
                 </div>
             </div>
-         </section>
-
-         <!--==================== ABOUT ====================-->
-         <section class="about section" id="about">
-            <div class="about__container ccontainer grid">
-                <div class="about__data">
-                    <h3 class="section__subtitle">
-                        Saiba <span>mais</span>
-                    </h3>
-                    <h2 class="section__title">
-                        Sobre mim
-                    </h2>
-                    <p class="about__description">
-                        Como Desenvolvedor Front-End, me especializei na criação de páginas web com foco em interfaces de usuário. 
-                        Com uma experiência consolidada em diversos projetos, alcancei a plena satisfação dos meus clientes. 
-                        Estou continuamente empenhado em aprimorar minhas habilidades técnicas e manter-me atualizado com as últimas 
-                        tendências do mercado, visando fornecer soluções modernas e eficientes.
-                    </p>
-                    <a href="#contact" class="button">Converse comigo</a>
+        </section>
+        <section class="content">
+            <div id="clientes" class="nestedtabcontent">
+                <h3>Lista de Clientes</h3>
+            
+                <button onclick="openModal('modalNovoCliente')">Novo Cliente</button>
+            
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nome</th>
+                            <th>Contato</th>
+                            <th>E-mail</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>Cliente A</td>
+                            <td>Joana Silva</td>
+                            <td>cliente@example.com</td>
+                            <td>
+                                <button onclick="openModal('modalEditarCliente')">Editar</button>
+                                <button onclick="deleteClient(1)">Excluir</button>
+                            </td>
+                        </tr>
+                        <!-- Adicione mais linhas conforme necessário -->
+                    </tbody>
+                </table>
+            
+                <div id="modalNovoCliente" class="modal">
+                    <div class="modal-content">
+                        <h4>Novo Cliente</h4>
+                        <label for="nomeNovoCliente">Nome:</label>
+                        <input type="text" id="nomeNovoCliente">
+            
+                        <label for="contatoNovoCliente">Contato:</label>
+                        <input type="text" id="contatoNovoCliente">
+            
+                        <label for="emailNovoCliente">E-mail:</label>
+                        <input type="text" id="emailNovoCliente">
+            
+                        <button onclick="saveNewClient()">Salvar</button>
+                        <button onclick="closeModal()">Cancelar</button>
+                    </div>
                 </div>
-                <div class="about__image">
-
+            
+                <div id="modalEditarCliente" class="modal">
+                    <div class="modal-content">
+                        <h4>Editar Cliente</h4>
+                        <label for="nomeEditarCliente">Nome:</label>
+                        <input type="text" id="nomeEditarCliente">
+            
+                        <label for="contatoEditarCliente">Contato:</label>
+                        <input type="text" id="contatoEditarCliente">
+            
+                        <label for="emailEditarCliente">E-mail:</label>
+                        <input type="text" id="emailEditarCliente">
+            
+                        <button onclick="saveEditedClient()">Salvar</button>
+                        <button onclick="closeModal()">Cancelar</button>
+                    </div>
                 </div>
             </div>
-         </section>
-
-         <!--==================== SKILLS ====================-->
-         <section class="skills section">
-            <div class="skills__container container grid">
-                <div class="skills__data">
-                    <h3 class="section__subtitle">
-                        Conheça <span>as</span>
-                    </h3>
-                    <h2 class="section__title">
-                        Minhas skills
-                    </h2>
-                    <p class="skills__description">
-                        Conheça as habilidade que possuo para desenvolver os melhores projetos para você.
-                    </p>
-                    <a href="#projects" class="button">Veja meus projetos</a>
+        </section>
+        <section class="content">
+        <div id="financeiro" class="tabcontent">
+            <button class="nestedtablink" onclick="openFinanceNestedTab(event, 'gestaoFinancas')">Gestão de Finanças</button>
+            <button class="nestedtablink" onclick="openFinanceNestedTab(event, 'faturamentoPagamentos')">Faturamento e Pagamentos</button>
+        
+            <div id="gestaoFinancas" class="nestedtabcontent">
+                <!-- Conteúdo para Gestão de Finanças -->
+                <h3>Gestão de Finanças</h3>
+                <div id="controleDespesas">
+                    <h4>Controle de Despesas</h4>
+                    <label for="descricaoDespesa">Descrição:</label>
+                    <input type="text" id="descricaoDespesa">
+                
+                    <label for="valorDespesa">Valor:</label>
+                    <input type="text" id="valorDespesa">
+                
+                    <label for="dataDespesa">Data:</label>
+                    <input type="date" id="dataDespesa">
+                
+                    <button onclick="registrarDespesa()">Registrar Despesa</button>
                 </div>
-                <div class="skills__content">
-                    <ol class="skills__group">
-                        <li class="skills__item">HTML & CSS</li>
-                        <li class="skills__item">JavaScript</li>
-                        <li class="skills__item">Git & GitHub</li>
-                    </ol>
-                    <ol class="skills__group" start="4">
-                        <li class="skills__item">Frameworks & bibliotecas</li>
-                        <li class="skills__item">Arquitetura de Software</li>
-                        <li class="skills__item">SQL</li>
-                    </ol>
+                <div id="controleReceitas">
+                    <h4>Controle de Receitas</h4>
+                    <label for="descricaoReceita">Descrição:</label>
+                    <input type="text" id="descricaoReceita">
+                
+                    <label for="valorReceita">Valor:</label>
+                    <input type="text" id="valorReceita">
+                
+                    <label for="dataReceita">Data:</label>
+                    <input type="date" id="dataReceita">
+                
+                    <button onclick="registrarReceita()">Registrar Receita</button>
+                </div>
+                <div id="fluxoCaixa" >
+                    <h4>Fluxo de Caixa</h4>
+                    <label for="saldoInicial">Saldo Inicial:</label>
+                    <input type="text" id="saldoInicial">
+                
+                    <label for="saldoAtual">Saldo Atual:</label>
+                    <input type="text" id="saldoAtual" readonly>
+                
+                    <button onclick="calcularFluxoCaixa()">Calcular Fluxo de Caixa</button>
+                </div>
+                <div id="relatoriosFinanceiros">
+                    <h4>Relatórios Financeiros</h4>
+                    <button onclick="gerarRelatorio()">Gerar Relatório</button>
+                </div>
+                
+                
+                
+            </div>
+        
+            <div id="faturamentoPagamentos" class="nestedtabcontent">
+                <h3>Faturamento e Pagamentos</h3>
+
+                <h4>Processamento de Faturas</h4>
+                <button onclick="processarFaturas()">Processar Faturas</button>
+
+                <h4>Registros de Pagamentos</h4>
+                <label for="descricaoPagamento">Descrição:</label>
+                <input type="text" id="descricaoPagamento">
+
+                <label for="valorPagamento">Valor:</label>
+                <input type="text" id="valorPagamento">
+
+                <label for="dataPagamento">Data:</label>
+                <input type="date" id="dataPagamento">
+
+                <button onclick="registrarPagamento()">Registrar Pagamento</button>
+
+                <h4>Acompanhamento de Saldos</h4>
+                <button onclick="mostrarSaldos()">Mostrar Saldos</button>
+            </div>
+        </div>
+        </section>
+        <section class="content">
+            <div id="estoque" class="tabcontent">
+                <button class="nestedtablink" onclick="openNestedTab(event, 'gestaoInventario')">Gestão de Inventário</button>
+                <button class="nestedtablink" onclick="openNestedTab(event, 'alertasEstoque')">Alertas de Estoque Baixo</button>
+            
+                <div id="gestaoInventario" class="nestedtabcontent">
+                    <h3>Registrar Nota Fiscal</h3>
+                    <label for="numNotaFiscal">Número da Nota Fiscal:</label>
+                    <input type="text" id="numNotaFiscal">
+                
+                    <label for="dataNotaFiscal">Data da Nota Fiscal:</label>
+                    <input type="date" id="dataNotaFiscal">
+                
+                    <label for="fornecedor">Fornecedor:</label>
+                    <input type="text" id="fornecedor">
+                
+                    <label for="detalhesNotaFiscal">Detalhes da Nota Fiscal:</label>
+                    <textarea id="detalhesNotaFiscal" rows="4"></textarea>
+                
+                    <h4>Produtos</h4>
+                    <div id="produtosNotaFiscal">
+                        <div class="produto">
+                            <label for="nomeProduto">Nome do Produto:</label>
+                            <input type="text" class="nomeProduto">
+                
+                            <label for="quantidadeProduto">Quantidade:</label>
+                            <input type="number" class="quantidadeProduto">
+                            
+                            <!-- Adicione mais campos conforme necessário para detalhes do produto -->
+                        </div>
+                        <!-- Pode adicionar mais campos conforme necessário para mais produtos -->
+                    </div>
+                
+                    <button onclick="registrarNotaFiscal()">Registrar Nota Fiscal</button>
+                </div>
+                
+            
+                <div id="alertasEstoque" class="nestedtabcontent">
+                    <h3>Alertas de Estoque Baixo</h3>
+                    <!-- Aqui você pode exibir alertas quando o estoque estiver baixo -->
+                    <p>Exemplo: Se o estoque estiver abaixo de 10 unidades, exiba uma mensagem de alerta.</p>
+                    <!-- Lógica de alerta de estoque baixo -->
                 </div>
             </div>
-         </section>
-
-         <!--==================== SERVICES ====================-->
-         <section class="services section" id="services">
-            <h3 class="section__subtitle">
-                Saiba mais <span>sobre</span>
-            </h3>
-            <h2 class="section__title">
-                Os meus serviços
-            </h2>
-            <div class="services__container container grid">
-                <article class="services__card">
-                    <i class="ri-layout-3-line services__icon"></i>
-                    <h2 class="services__title">Desenvolvimento Front-End</h2>
-                    <p class="services__description">
-                        Dedicado à elaboração de páginas web personalizadas
-                        emprego tecnologias e bibliotecas pertinentes ao universo do desenvolvimento web.
-                    </p>
-                </article>
-                <article class="services__card">
-                    <i class="ri-pen-nib-line services__icon"></i>
-                    <h2 class="services__title">Resolução de Problemas</h2>
-                    <p class="services__description">
-                        Capacidade de identificar e corrigir bugs, conduzir testes e depurar o código, 
-                        assegurando o pleno funcionamento das interfaces.
-                    </p>
-                </article>
-                <article class="services__card">
-                    <i class="ri-pantone-line services__icon"></i>
-                    <h2 class="services__title">Frameworks e Bibliotecas</h2>
-                    <p class="services__description">
-                        Experiência no desenvolvimento de aplicações que consomem APIs e na integração com serviços externos.
-                    </p>
-                </article>
+        </section>
+        <section class="content">
+            <div id="vendas" class="tabcontent">
+                <button class="nestedtablink" onclick="openNestedTab(event, 'registroVendas')">Registro de Vendas</button>
+                <button class="nestedtablink" onclick="openNestedTab(event, 'relatoriosVendas')">Relatorios de Vendas</button>
+            <div id="registroVendas" class="nestedtabcontent">
+                <h3>Registro de Vendas</h3>
+                <label for="clienteVenda">Cliente:</label>
+                <input type="text" id="clienteVenda">
+            
+                <label for="produtoVenda">Produto:</label>
+                <input type="text" id="produtoVenda">
+            
+                <label for="quantidadeVenda">Quantidade:</label>
+                <input type="number" id="quantidadeVenda">
+            
+                <label for="valorVenda">Valor:</label>
+                <input type="number" id="valorVenda">
+            
+                <button onclick="registrarVenda()">Registrar Venda</button>
             </div>
-         </section>
-
-         <!--==================== PROJECTS ====================-->
-         <section class="projects section" id="projects">
-            <h3 class="section__subtitle">
-                Navegue <span>pelos</span>
-            </h3>
-            <h1 class="section__title">
-                Meus projetos
-            </h1>
-            <div class="projects__container container grid">
-                <article class="projects__card">
-                    <img src="./img/finobistro.png" alt="Imagem do projeto" class="projects__img">
-                    <div class="projects__modal">
-                        <span class="projects__subtitle">Landing Page</span>
-                        <h2 class="projects__title">Restaurante</h2>
-                        <a href="https://n1codev.github.io/finobistro/" class="projects__button" target="_blank">
-                            Ver <i class="ri-external-link-line"></i>
-                        </a>
-                    </div>
-                </article>
-                <article class="projects__card">
-                    <img src="./img/flow.png" alt="Imagem do projeto" class="projects__img">
-                    <div class="projects__modal">
-                        <span class="projects__subtitle">Landing Page</span>
-                        <h2 class="projects__title">Agencia de Marketing</h2>
-                        <a href="https://n1codev.github.io/FlowAgencia/" class="projects__button" target="_blank">
-                            Ver <i class="ri-external-link-line"></i>
-                        </a>
-                    </div>
-                </article>
-                <article class="projects__card">
-                    <img src="./img/ticket.png" alt="Imagem do projeto" class="projects__img">
-                    <div class="projects__modal">
-                        <span class="projects__subtitle">Página da Web</span>
-                        <h2 class="projects__title">Sistema de chamados</h2>
-                        <a href="https://n1codev.github.io/FlowAgencia/Ticket/newTicket.html" class="projects__button" target="_blank">
-                            Ver <i class="ri-external-link-line"></i>
-                        </a>
-                    </div>
-                </article>
-                <article class="projects__card">
-                    <img src="./img/controleestoque.png" alt="Imagem do projeto" class="projects__img">
-                    <div class="projects__modal">
-                        <span class="projects__subtitle">Software</span>
-                        <h2 class="projects__title">Controle de Estoque</h2>
-                        <a href="https://n1codev.github.io/controleestoque" class="projects__button" target="_blank">
-                            Ver <i class="ri-external-link-line"></i>
-                        </a>
-                    </div>
-                </article>
-                <article class="projects__card">
-                    <img src="./img/nicolinks.png" alt="Imagem do projeto" class="projects__img">
-                    <div class="projects__modal">
-                        <span class="projects__subtitle">Página de Links</span>
-                        <h2 class="projects__title">Página estilo beacons</h2>
-                        <a href="https://n1codev.github.io/nicolinks/" class="projects__button" target="_blank">
-                            Ver <i class="ri-external-link-line"></i>
-                        </a>
-                    </div>
-                </article>
+            
+            <div id="relatoriosVendas" class="nestedtabcontent">
+                <h3>Relatórios de Vendas</h3>
+                <div id="relatoriosVendas" class="nestedtabcontent">
+                    <h3>Relatórios de Vendas</h3>
+                    <canvas id="graficoVendas"></canvas>
+                </div>
+                
             </div>
-         </section>
-
-         <!--==================== CONTACT ====================-->
-         <section class="contact section" id="contact">
-            <h3 class="section__subtitle">
-                Gostou ou quer tirar alguma <span>dúvida?</span>
-            </h3>
-            <h2 class="section__title2 section__title">
-                Entre em contato
-            </h2>
-            <div class="contact__container container grid">
-                <form action="" class="contact__form" id="contact-form">
-                    <div class="contact__group">
-                        <input type="text" name="user_name" required placeholder="Digite seu nome" class="contact__input">
-                        <input type="email" name="user_email" required placeholder="Digite seu e-mail" class="contact__input">
+            </div>
+            
+        </section>
+        <section class="content">
+            <div id="compras" class="tabcontent">
+                <button class="nestedtablink" onclick="openNestedTab(event, 'gestãoCompras')">Gestão de Compras</button>
+                <button class="nestedtablink" onclick="openNestedTab(event, 'compararPreços')">Comparação de Preços</button>
+                <div id="gestãoCompras" class="nestedtabcontent">
+                    <h3>Gestão de Compras</h3>
+                    <button onclick="openModal('modalNovaCompra')">Nova Compra</button>
+            
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Produto</th>
+                                <th>Fornecedor</th>
+                                <th>Data</th>
+                                <th>Status</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Aqui você pode listar as compras feitas -->
+                            <tr>
+                                <td>1</td>
+                                <td>Produto A</td>
+                                <td>Fornecedor X</td>
+                                <td>01/01/2023</td>
+                                <td>Pendente</td>
+                                <td>
+                                    <button onclick="openModal('modalEditarCompra')">Editar</button>
+                                    <button onclick="deletePurchase(1)">Excluir</button>
+                                </td>
+                            </tr>
+                            <!-- Adicione mais linhas conforme necessário -->
+                        </tbody>
+                    </table>
+            
+                    <div id="modalNovaCompra" class="modal">
+                        <div id="modalNovaCompra" class="modal">
+                            <div class="modal-content">
+                                <h4>Nova Compra</h4>
+                                <label for="produtoCompra">Produto:</label>
+                                <input type="text" id="produtoCompra">
+                        
+                                <label for="fornecedorCompra">Fornecedor:</label>
+                                <input type="text" id="fornecedorCompra">
+                        
+                                <label for="dataCompra">Data:</label>
+                                <input type="date" id="dataCompra">
+                        
+                                <label for="statusCompra">Status:</label>
+                                <select id="statusCompra">
+                                    <option value="pendente">Pendente</option>
+                                    <option value="em-andamento">Em Andamento</option>
+                                    <option value="concluida">Concluída</option>
+                                </select>
+                        
+                                <button onclick="saveNewPurchase()">Salvar</button>
+                                <button onclick="closeModal()">Cancelar</button>
+                            </div>
+                        </div>
+                        
                     </div>
-                    <textarea name="user_project" required placeholder="Digite sua mensagem" class="contact__input"></textarea>
-                    <p class="contact__message" id="contact-message">Mensagem</p>
-                    <button type="submit" class="button contact__button">
-                        Enviar mensagem
-                    </button>
-                </form>
+            
+                    <div id="modalEditarCompra" class="modal">
+                        <div id="modalEditarCompra" class="modal">
+                            <div class="modal-content">
+                                <h4>Editar Compra</h4>
+                                <label for="produtoEditarCompra">Produto:</label>
+                                <input type="text" id="produtoEditarCompra">
+                        
+                                <label for="fornecedorEditarCompra">Fornecedor:</label>
+                                <input type="text" id="fornecedorEditarCompra">
+                        
+                                <label for="dataEditarCompra">Data:</label>
+                                <input type="date" id="dataEditarCompra">
+                        
+                                <label for="statusEditarCompra">Status:</label>
+                                <select id="statusEditarCompra">
+                                    <option value="pendente">Pendente</option>
+                                    <option value="em-andamento">Em Andamento</option>
+                                    <option value="concluida">Concluída</option>
+                                </select>
+                        
+                                <button onclick="saveEditedPurchase()">Salvar</button>
+                                <button onclick="closeModal()">Cancelar</button>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+                <div id="compararPreços" class="nestedtabcontent">
+                    <h3>Comparação de Preços</h3>
+                    <p>Ferramentas para comparar preços de diferentes fornecedores.</p>
+                    <div id="comparacaoPrecos" class="nestedtabcontent">
+                        <h3>Comparação de Preços</h3>
+                        <p>Utilize este formulário para comparar preços de diferentes fornecedores.</p>
+                    
+                        <label for="produtoComparacao">Produto:</label>
+                        <input type="text" id="produtoComparacao">
+                    
+                        <label for="fornecedor1">Fornecedor 1:</label>
+                        <input type="text" id="fornecedor1">
+                    
+                        <label for="precoFornecedor1">Preço do Fornecedor 1:</label>
+                        <input type="text" id="precoFornecedor1">
+                    
+                        <label for="fornecedor2">Fornecedor 2:</label>
+                        <input type="text" id="fornecedor2">
+                    
+                        <label for="precoFornecedor2">Preço do Fornecedor 2:</label>
+                        <input type="text" id="precoFornecedor2">
+                    
+                        <button onclick="compararPrecos()">Comparar</button>
+                        <div id="resultadoComparacao"></div>
+                    </div>
+                    
+                </div>
             </div>
-         </section>
-      </main>
+            
+        </section>
+    </main>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="script.js"></script>
+</body>
 
-      <!--==================== FOOTER ====================-->
-      <footer class="footer">
-         <div class="footer__container container grid">
-            <div>
-                <h1 class="fotter__title">
-                    Nícolas <span>Berbert</span>
-                </h1>
-                <h2 class="footer__education">
-                    Desenvolvedor
-                </h2>
-            </div>
-            <div class="footer__social">
-                <a href="https://github.com/n1codev" target="_blank" class="footer__social-link">
-                    <i class="ri-github-fill"></i>
-                </a>
-                <a href="https://www.linkedin.com/in/n%C3%ADcolas-berbert-85269b26a/" target="_blank" class="footer__social-link">
-                    <i class="ri-linkedin-box-line"></i>
-                </a>
-                <a href="https://www.instagram.com/nicoberbert/" target="_blank" class="footer__social-link">
-                    <i class="ri-instagram-line"></i>
-                </a>
-            </div>
-            <span class="footer__copy">
-                © 2023 Nicodev. Todos os direitos reservados. Desenvolvido por <a href="https://nicolinks.netlify.app" target="_blank"> Nícolas Berbert
-            </span>
-         </div>
-      </footer>
-
-      <!--========== SCROLL UP ==========-->
-      <a href="#" class="scrollup" id="scroll-up">
-        <i class="ri-arrow-up-line"></i>
-      </a>
-
-      <!--=============== SCROLLREVEAL ===============-->
-      <script src="./js/scrollreveal.min.js"></script>
-
-
-      <!--=============== MAIN JS ===============-->
-      <script src="./js/script.js"></script>
-   </body>
 </html>
